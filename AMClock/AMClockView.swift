@@ -76,6 +76,8 @@ public protocol AMClockViewDelegate: class {
     private var endAngle:Float = 0.0
     
     private var currentDate = Date()
+
+    private let drawingCalculator = AMDrawingCalculator()
     
     override public var bounds: CGRect {
         didSet {
@@ -128,11 +130,12 @@ public protocol AMClockViewDelegate: class {
         }
     }
 
-    public var selectedDate:Date? {
-        didSet{
-            currentDate = selectedDate ?? Date()
-            redrawClock()
-        }
+    public var isScrubbing: Bool = false
+
+    public func setSelectedDate(_ date: Date, timeZone: TimeZone) {
+        currentDate = date
+        dateFormatter.timeZone = timeZone
+        redrawClock()
     }
     
     //MARK:Initialize
@@ -406,7 +409,7 @@ public protocol AMClockViewDelegate: class {
         panHourLayer.fillColor = UIColor.clear.cgColor
         panHourLayer.path = path2.cgPath
     }
-    
+
     //MARK: Gesture Action
     @objc func panAction(gesture: UIPanGestureRecognizer) {
         guard let panMinuteLayer = panMinuteLayer,
@@ -416,6 +419,7 @@ public protocol AMClockViewDelegate: class {
         
         let point = gesture.location(in: clockView)
         if gesture.state == .began {
+            isScrubbing = true
             /// Set edit mode
             if UIBezierPath(cgPath: panHourLayer.path!).contains(point) {
                 editType = .hour
@@ -428,6 +432,10 @@ public protocol AMClockViewDelegate: class {
                 editType = .none
             }
         } else {
+            if gesture.state == .ended {
+                isScrubbing = false
+            }
+
             switch editType {
             case .none:
                 /// Set edit mode
@@ -449,7 +457,7 @@ public protocol AMClockViewDelegate: class {
     
     private func editTimeHour(point: CGPoint) {
         let radian:Float = calculateRadian(point: point)
-        var angle:Float = calculateHourAngle(radian: radian)
+        var angle:Float = drawingCalculator.calculateHourAngle(radian: radian)
         dateFormatter.dateFormat = AMCVDateFormat.minute.rawValue
         let minute = Int(dateFormatter.string(from: currentDate))
         angle += (Float(minute!)/60.0) * Float(Double.pi/6)
@@ -530,18 +538,12 @@ public protocol AMClockViewDelegate: class {
     }
     
     //MARK: Calculate
-    private func calculateHourAngle(radian: Float) -> Float {
-        let hour = (radian - Float(Double.pi + Double.pi/2)) / (Float(Double.pi * 2)/12)
-        let angle:Float = (Float(Double.pi * 2)/12) * Float(Int(hour))
-        return  angle + Float(Double.pi + Double.pi/2)
-    }
-    
     private func caluculateMinuteAngle(radian: Float) -> Float {
         let minute = (radian - Float(Double.pi + Double.pi/2)) / (Float(Double.pi * 2)/60)
         let angle:Float = (Float(Double.pi * 2)/60) * Float(Int(minute))
         return  angle + Float(Double.pi + Double.pi/2)
     }
-    
+
     private func calculateRadian(point: CGPoint) -> Float {
         // origin(view's center)
         let radius:CGFloat = clockView.frame.width/2

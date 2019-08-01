@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E47526C201E12F3002EA382 /* AMClockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E47526A201E12F2002EA382 /* AMClockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E475274201E1401002EA382 /* AMClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475273201E1401002EA382 /* AMClockView.swift */; };
+		2624800622F27FF700AC0BFF /* AMDrawingCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2624800522F27FF700AC0BFF /* AMDrawingCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		0E47526A201E12F2002EA382 /* AMClockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMClockView.h; sourceTree = "<group>"; };
 		0E47526B201E12F3002EA382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E475273201E1401002EA382 /* AMClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMClockView.swift; sourceTree = "<group>"; };
+		2624800522F27FF700AC0BFF /* AMDrawingCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMDrawingCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				0E475273201E1401002EA382 /* AMClockView.swift */,
+				2624800522F27FF700AC0BFF /* AMDrawingCalculator.swift */,
 			);
 			path = AMClock;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2624800622F27FF700AC0BFF /* AMDrawingCalculator.swift in Sources */,
 				0E475274201E1401002EA382 /* AMClockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
