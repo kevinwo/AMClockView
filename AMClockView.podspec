@@ -6,7 +6,8 @@ Pod::Spec.new do |s|
     s.homepage     = "https://github.com/adventam10/AMClockView"
     s.author       = { "am10" => "adventam10@gmail.com" }
     s.source       = { :git => "https://github.com/adventam10/AMClockView.git", :tag => "#{s.version}" }
-    s.platform     = :ios, "9.0"
+    s.ios.deployment_target = "9.0"
+    s.tvos.deployment_target = "11.0"
     s.requires_arc = true
     s.source_files = 'AMClock/*.{swift}'
     s.swift_version = "5.0"
